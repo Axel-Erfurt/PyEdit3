@@ -1,0 +1,8 @@
+import subprocess
+
+title = 'Message from App'
+message = 'Hello World'
+icon = "info"
+timeout = 4000
+msg = ["notify-send", "-i", icon, message, title, '-t', str(timeout)]
+subprocess.Popen(msg)

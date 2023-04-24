@@ -1,0 +1,5 @@
+def get_splitted(word, sep):
+    return word.split(sep)[1].split(sep)[0]
+    
+def get_double_splitted(word, sep, splitter):
+    return word.split(sep)[1].split(splitter)[0]

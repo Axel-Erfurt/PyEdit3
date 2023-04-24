@@ -1,0 +1,24 @@
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QHBoxLayout, 
+                             QWidget)
+
+class mainWin(QMainWindow):
+    def __init__(self, parent = None):
+        super(mainWin, self).__init__(parent)
+        self.setupUI()
+        
+    def setupUI(self):
+        self.setGeometry(0, 0, 800, 600)
+        central_widget = QWidget()
+        vbox = QVBoxLayout()
+        central_widget.setLayout(vbox)
+        self.setCentralWidget(central_widget)
+
+
+if __name__ == '__main__':
+    import sys
+    app = QApplication(sys.argv)
+    win = mainWin()
+    win.setWindowTitle("Main Window")
+    win.show()
+
+    sys.exit(app.exec_())

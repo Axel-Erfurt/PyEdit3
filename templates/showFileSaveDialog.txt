@@ -1,0 +1,5 @@
+    def showFileSaveDialog(self):
+        fname,_ = QFileDialog.getSaveFileName(self, 'Open file', '/home/new.txt')
+        if fname:
+            f = open(fname, 'w')
+            with f:

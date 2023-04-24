@@ -1,0 +1,15 @@
+    def tableToCSV(self, delimiter):
+        rowText = []
+        out = []
+        for row in range(self.table.rowCount()):
+            rowdata = []
+            for column in range(self.table.columnCount()):
+                item = self.table.item(row, column)
+                if item is not None:
+                    rowdata.append(item.text())
+                else:
+                    rowdata.append('')
+            rowText.append(rowdata)
+        for t in rowText:
+            out.append(delimiter.join(t))
+        return '\n'.join(out)

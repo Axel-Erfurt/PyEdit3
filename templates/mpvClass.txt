@@ -1,0 +1,20 @@
+import mpv
+
+class MPVPlayer():
+    def __init__(self):
+        self.player = mpv.MPV(ytdl=True,
+                         input_default_bindings=True,
+                         input_vo_keyboard=True,
+                         terminal=True,
+                         input_terminal=True,
+                         input_cursor=False, 
+                         osc=True)
+                         
+        self.player.on_key_press('ESC')(self.player.quit)
+        
+    def play(self, url):
+        print("play('{}')".format(url), file=sys.stderr)
+        self.player.play(url)
+        self.player.wait_for_playback()
+        if self.player.vo_configured:
+            return

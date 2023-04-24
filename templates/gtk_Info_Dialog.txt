@@ -1,0 +1,16 @@
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+
+def open_message_window(message, *args):
+    dialog = Gtk.MessageDialog(
+        flags=0,
+        message_type=Gtk.MessageType.INFO,
+        buttons=Gtk.ButtonsType.OK,
+        text=message)
+    dialog.run()
+    print("INFO dialog closed")
+
+    dialog.destroy()
+        
+open_message_window("Hello Boy")

@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
+from gi.repository import Gio
+import sys
+
+class ApplicationWindow(Gtk.ApplicationWindow):
+    def __init__(self, application):
+        Gtk.Window.__init__(self, application=application)
+        self.connect("destroy", Gtk.main_quit)
+        self.set_title("Application")
+        self.set_default_size(600, 500)
+
+        grid = Gtk.Grid()
+        self.add(grid)
+
+        menubutton = Gtk.MenuButton()
+        #grid.attach(menubutton, 0, 0, 1, 1)
+
+        menumodel = Gio.Menu()
+        menubutton.set_menu_model(menumodel)
+        menumodel.append("New", "app.New")
+        menumodel.append("Open", "app.Open")
+        menumodel.append("Quit", "app.Quit")
+        
+        self.headerbar = Gtk.HeaderBar()
+        self.headerbar.set_show_close_button(True)
+        self.headerbar.add(menubutton)
+        self.headerbar.set_title("Title")
+        self.headerbar.set_subtitle("SubTitle")
+        self.set_titlebar(self.headerbar)
+
+class Application(Gtk.Application):
+    def __init__(self):
+        Gtk.Application.__init__(self)
+
+    def do_activate(self):
+        window = ApplicationWindow(self)
+        window.show_all()
+
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
+
+        new_action = Gio.SimpleAction.new("New", None)
+        new_action.connect("activate", self.new_callback)
+        self.add_action(new_action)
+        
+        open_action = Gio.SimpleAction.new("Open", None)
+        open_action.connect("activate", self.open_callback)
+        self.add_action(open_action)
+
+        quit_action = Gio.SimpleAction.new("Quit", None)
+        quit_action.connect("activate", self.quit_callback)
+        self.add_action(quit_action)
+
+    def new_callback(self, action, parameter):
+        print("You clicked New")
+
+    def open_callback(self, action, parameter):
+        print("You clicked Open")
+        
+    def quit_callback(self, action, parameter):
+        print("You clicked Quit")
+        self.quit()
+
+application = Application()
+exit_status = application.run(sys.argv)
+sys.exit(exit_status)

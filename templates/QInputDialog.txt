@@ -1,0 +1,31 @@
+class InputDialog(QWidget):
+    
+    def __init__(self):
+        super().__init__()
+        
+        self.initUI()
+        
+        
+    def initUI(self):      
+
+        self.btn = QPushButton('Dialog', self)
+        self.btn.setGeometry(20, 20, 70, 26)
+        self.btn.clicked.connect(self.getInput)
+        
+        self.le = QLineEdit(self)
+        self.le.setGeometry(120, 20, 120, 26)
+        
+        self.setGeometry(300, 300, 290, 150)
+        self.setWindowTitle('Input Dialog')
+        self.show()
+        
+        
+    def showDialog(self):
+        
+        text, ok = QInputDialog.getText(self, 'Input Dialog', 
+            'Enter your name:')        
+        if ok:
+            return text
+            
+    def getInput(self):
+        self.le.setText(str(self.showDialog()))

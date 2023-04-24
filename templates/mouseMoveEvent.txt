@@ -1,0 +1,5 @@
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.LeftButton:
+            self.move(round(event.globalPos().x() - self.geometry().width() / 2), \
+            round(event.globalPos().y() - self.geometry().height() / 2))
+            event.accept()

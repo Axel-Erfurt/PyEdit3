@@ -1,0 +1,50 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QVBoxLayout, QHBoxLayout, 
+                             QWidget, QTextEdit, QAction)
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt, QSize
+
+class mainWin(QMainWindow):
+    def __init__(self, parent = None):
+        super(mainWin, self).__init__(parent)
+        self.setupUI()
+        
+    def setupUI(self):
+        self.setGeometry(0, 0, 800, 600)
+        central_widget = QWidget()
+        vbox = QVBoxLayout()
+        central_widget.setLayout(vbox)
+        self.setCentralWidget(central_widget)
+        
+        ### toolbar
+        self.file_toolbar = self.addToolBar("File")
+        self.file_toolbar.setIconSize(QSize(16, 16))
+        self.file_toolbar.addAction(QAction(QIcon.fromTheme("document-new"), "New", 
+                                     self, triggered = self.action_new_clicked))
+        self.file_toolbar.addAction(QAction(QIcon.fromTheme("document-open"), "Open", 
+                                     self, triggered = self.action_open_clicked))
+        vbox.addWidget(self.file_toolbar)
+        
+        ### editor
+        self.editor = QTextEdit()
+        vbox.addWidget(self.editor)
+        
+        ### statusBar
+        self.statusbar = self.statusBar()
+        self.statusbar.showMessage("Ready")
+        
+    def action_new_clicked(self):
+        print("New")
+
+    def action_open_clicked(self):
+        print("Open")
+
+if __name__ == '__main__':
+    import sys
+    app = QApplication(sys.argv)
+    win = mainWin()
+    win.setWindowTitle("Main Window")
+    win.show()
+
+    sys.exit(app.exec_())
